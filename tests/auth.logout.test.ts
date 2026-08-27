@@ -41,8 +41,7 @@ function createAuthContext(): { ctx: TrpcContext; clearedCookies: CookieCall[] }
   return { ctx, clearedCookies };
 }
 
-// TODO: Remove `.skip` below once you implement user authentication
-describe.skip("auth.logout", () => {
+describe("auth.logout", () => {
   it("clears the session cookie and reports success", async () => {
     const { ctx, clearedCookies } = createAuthContext();
     const caller = appRouter.createCaller(ctx);
@@ -59,5 +58,13 @@ describe.skip("auth.logout", () => {
       httpOnly: true,
       path: "/",
     });
+  });
+});
+
+describe("protected procedures", () => {
+  it("rejects workspace setup without an authenticated user", async () => {
+    const { ctx } = createAuthContext();
+    const caller = appRouter.createCaller({ ...ctx, user: null });
+    await expect(caller.workspace.setup({ name: "Negócio sem sessão", monthlyGoalCents: 0, reserveGoalCents: 0 })).rejects.toMatchObject({ code: "UNAUTHORIZED" });
   });
 });

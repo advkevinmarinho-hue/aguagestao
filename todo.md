@@ -21,3 +21,8 @@
 - [x] Validar tipos, lint, fluxos principais e visual mobile antes da entrega.
 
 - [x] Corrigir o botão “Começar gestão” para concluir o onboarding e navegar para a tela inicial.
+
+- [x] Executar testes abrangentes de cadastro, autenticação e onboarding.
+- [x] Executar testes de produtos, estoque compartilhado, vendas e pagamentos.
+- [x] Executar testes de finanças, relatórios, aprendizagem e estados de erro.
+- [x] Corrigir falhas encontradas e salvar uma versão Android validada.

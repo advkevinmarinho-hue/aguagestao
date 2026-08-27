@@ -1,4 +1,4 @@
-import { formatBRL } from "@/shared/business";
+import { formatBRL } from "../shared/business";
 
 const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character] ?? character);
 
