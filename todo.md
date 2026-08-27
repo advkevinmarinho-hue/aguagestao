@@ -19,3 +19,5 @@
 - [ ] Adicionar estados de carregamento, vazio, erro e sucesso às telas e mutações.
 - [x] Criar testes determinísticos para cálculos financeiros, estoque compartilhado e relatórios.
 - [x] Validar tipos, lint, fluxos principais e visual mobile antes da entrega.
+
+- [x] Corrigir o botão “Começar gestão” para concluir o onboarding e navegar para a tela inicial.

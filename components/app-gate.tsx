@@ -15,8 +15,8 @@ export function AppGate({ children }: { children: React.ReactNode }) {
   }, [authLoading, isAuthenticated, router]);
 
   useEffect(() => {
-    if (isAuthenticated && workspace.data?.business === null) router.replace("/onboarding" as never);
-  }, [isAuthenticated, router, workspace.data?.business]);
+    if (isAuthenticated && workspace.isSuccess && !workspace.isFetching && workspace.data?.business === null) router.replace("/onboarding" as never);
+  }, [isAuthenticated, router, workspace.data?.business, workspace.isFetching, workspace.isSuccess]);
 
   if (authLoading || (isAuthenticated && workspace.isLoading)) {
     return <ScreenContainer><LoadingState /></ScreenContainer>;
