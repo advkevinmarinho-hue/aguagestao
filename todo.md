@@ -33,8 +33,8 @@
 - [x] Validar navegação do onboarding até as abas com atualização consistente do workspace.
 - [x] Executar TypeScript, testes automatizados, lint, build e diagnóstico do Expo após os ajustes.
 
-- [ ] Preparar distribuição alternativa do APK Android sem depender da cota EAS.
-- [ ] Documentar o canal escolhido e as instruções de instalação segura.
+- [x] Preparar distribuição alternativa do APK Android sem depender da cota EAS.
+- [x] Documentar o canal escolhido e as instruções de instalação segura.
 
-- [ ] Definir rota urgente de entrega ao cliente: EAS após renovação/upgrade, GitHub Actions ou build local.
-- [ ] Gerar e disponibilizar APK direto para instalação do cliente.
+- [x] Definir rota urgente de entrega ao cliente: GitHub Actions com artefato APK direto.
+- [x] Gerar e disponibilizar APK direto para instalação do cliente.
