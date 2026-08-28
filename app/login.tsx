@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { Stack } from "expo-router";
 import { BrandMark } from "@/components/brand-mark";
 import { ScreenContainer } from "@/components/screen-container";
@@ -14,6 +14,8 @@ export default function LoginScreen() {
     setLoading(true);
     try {
       await startOAuthLogin();
+    } catch (error) {
+      Alert.alert("Não foi possível entrar", error instanceof Error ? error.message : "Tente novamente em alguns instantes.");
     } finally {
       setLoading(false);
     }

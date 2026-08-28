@@ -26,3 +26,9 @@
 - [x] Executar testes de produtos, estoque compartilhado, vendas e pagamentos.
 - [x] Executar testes de finanças, relatórios, aprendizagem e estados de erro.
 - [x] Corrigir falhas encontradas e salvar uma versão Android validada.
+
+- [x] Validar troca de conta, restauração de sessão e abertura inicial no Expo Go.
+- [x] Testar onboarding com dados válidos, inválidos, envio duplicado, conexão lenta e falha de rede.
+- [x] Aperfeiçoar feedback visual, prevenção de toque repetido e recuperação de erros na configuração inicial.
+- [x] Validar navegação do onboarding até as abas com atualização consistente do workspace.
+- [x] Executar TypeScript, testes automatizados, lint, build e diagnóstico do Expo após os ajustes.

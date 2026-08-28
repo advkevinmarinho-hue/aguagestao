@@ -7,12 +7,14 @@ import * as Linking from "expo-linking";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Status = "processing" | "success" | "error";
 
 export default function OAuthCallback() {
   const colors = useColors();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const params = useLocalSearchParams<{ code?: string; state?: string; error?: string; sessionToken?: string; user?: string }>();
   const [status, setStatus] = useState<Status>("processing");
   const [message, setMessage] = useState("Validando seu acesso com segurança.");
@@ -32,19 +34,26 @@ export default function OAuthCallback() {
             user = { id: result.user.id, openId: result.user.openId, name: result.user.name, email: result.user.email, loginMethod: result.user.loginMethod, lastSignedIn: new Date(result.user.lastSignedIn || Date.now()) };
           }
         }
-        if (!token) throw new Error("Não encontramos uma sessão válida. Tente entrar novamente.");
-        await Auth.setSessionToken(token);
-
         if (!user && params.user && typeof globalThis.atob === "function") {
           try {
             const parsed = JSON.parse(globalThis.atob(params.user));
             user = { id: parsed.id, openId: parsed.openId, name: parsed.name ?? null, email: parsed.email ?? null, loginMethod: parsed.loginMethod ?? null, lastSignedIn: new Date(parsed.lastSignedIn || Date.now()) };
           } catch { /* A sessão continua válida mesmo sem o cache do perfil. */ }
         }
+        if (!token) throw new Error("Não encontramos uma sessão válida. Tente entrar novamente.");
+
+        const previousUser = await Auth.getUserInfo();
+        if (previousUser && user && previousUser.openId !== user.openId) {
+          await Auth.clearLocalSession();
+          queryClient.clear();
+        }
+
+        await Auth.setSessionToken(token);
         if (user) await Auth.setUserInfo(user);
         if (!active) return;
         setStatus("success"); setMessage("Acesso confirmado. Preparando seu negócio...");
-        setTimeout(() => router.replace("/(tabs)"), 600);
+        queryClient.removeQueries({ queryKey: [["workspace", "get"]] });
+        router.replace("/(tabs)");
       } catch (error) {
         if (!active) return;
         setStatus("error");
@@ -61,7 +70,7 @@ export default function OAuthCallback() {
       }).catch(() => { setStatus("error"); setMessage("Não foi possível abrir a confirmação de acesso."); });
     }
     return () => { active = false; };
-  }, [params.code, params.error, params.sessionToken, params.state, params.user, router]);
+  }, [params.code, params.error, params.sessionToken, params.state, params.user, queryClient, router]);
 
   return <ScreenContainer edges={["top", "bottom", "left", "right"]} className="px-6"><View style={styles.content}><BrandMark size={70} /><View style={styles.texts}>{status === "processing" ? <ActivityIndicator size="large" color={colors.primary} /> : null}<Text style={[styles.title, { color: status === "error" ? colors.error : colors.foreground }]}>{status === "success" ? "Tudo certo" : status === "error" ? "Acesso não concluído" : "Entrando na gestão"}</Text><Text style={[styles.message, { color: colors.muted }]}>{message}</Text></View>{status === "error" ? <Pressable onPress={() => router.replace("/login")} style={({ pressed }) => [styles.button, { backgroundColor: colors.primary }, pressed && styles.pressed]}><Text style={styles.buttonText}>Voltar para entrada</Text></Pressable> : null}</View></ScreenContainer>;
 }

@@ -53,9 +53,12 @@ export const appRouter = router({
       .input(z.object({ name: z.string().trim().min(2).max(120), monthlyGoalCents: cents, reserveGoalCents: cents }))
       .mutation(async ({ ctx, input }) => {
         const existing = await db.getBusinessForUser(ctx.user.id);
-        if (existing) throw new TRPCError({ code: "CONFLICT", message: "Este usuário já possui um negócio configurado." });
+        if (existing) {
+          await db.updateBusiness({ businessId: existing.id, ...input });
+          return { businessId: existing.id, created: false };
+        }
         const businessId = await db.createBusiness({ userId: ctx.user.id, ...input });
-        return { businessId };
+        return { businessId, created: true };
       }),
     update: protectedProcedure
       .input(z.object({ name: z.string().trim().min(2).max(120), monthlyGoalCents: cents, reserveGoalCents: cents }))

@@ -127,3 +127,7 @@ export async function clearUserInfo(): Promise<void> {
     console.error("[Auth] Failed to clear user info:", error);
   }
 }
+
+export async function clearLocalSession(): Promise<void> {
+  await Promise.all([removeSessionToken(), clearUserInfo()]);
+}
