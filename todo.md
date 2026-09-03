@@ -43,3 +43,7 @@
 - [ ] Corrigir o erro de instalação do APK e gerar pacote Android compatível.
 - [ ] Corrigir o erro “Unmatched Route” após cadastrar e salvar produto.
 - [ ] Reexecutar testes, diagnóstico Expo e validação de integridade do APK corrigido.
+
+- [x] Preparar configuração Expo/EAS para publicação Android.
+- [x] Configurar perfil de build APK e versão Android atualizada.
+- [x] Validar diagnóstico Expo e orientar o uso do botão Publish sem iniciar publicação automática.
