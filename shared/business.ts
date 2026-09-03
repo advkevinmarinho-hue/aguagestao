@@ -10,7 +10,7 @@ export type ProductSnapshot = {
   active: boolean;
 };
 
-export type SaleSnapshot = { id: number; totalCents: number; createdAt: Date | string };
+export type SaleSnapshot = { id: number; totalCents: number; createdAt: Date | string; status?: "completed" | "cancelled" };
 export type SaleItemSnapshot = {
   saleId: number;
   productId: number;
@@ -53,7 +53,7 @@ export function calculateMetrics(
   entries: FinancialEntrySnapshot[],
   range?: { start: Date; end: Date },
 ) {
-  const filteredSales = sales.filter((sale) => isBetween(sale.createdAt, range?.start, range?.end));
+  const filteredSales = sales.filter((sale) => sale.status !== "cancelled" && isBetween(sale.createdAt, range?.start, range?.end));
   const includedSaleIds = new Set(filteredSales.map((sale) => sale.id));
   const filteredItems = saleItems.filter((item) => includedSaleIds.has(item.saleId));
   const filteredEntries = entries.filter((entry) => isBetween(entry.occurredAt, range?.start, range?.end));

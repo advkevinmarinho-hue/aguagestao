@@ -75,4 +75,13 @@ describe("business edge cases", () => {
     // O custo unitário impacta o resultado/margem; o caixa é reduzido por entradas financeiras reais.
     expect(metrics.cashCents).toBe(3000 - 500);
   });
+
+  it("ignores cancelled sales from financial metrics and sold units", () => {
+    const metrics = calculateMetrics(products, [{ ...sales[0], status: "cancelled" }], saleItems.slice(0, 1), []);
+    expect(metrics.revenueCents).toBe(0);
+    expect(metrics.salesCount).toBe(0);
+    expect(metrics.soldStockUnits).toBe(0);
+    expect(metrics.netMargin).toBeNull();
+    expect(metrics.ticketAverageCents).toBeNull();
+  });
 });

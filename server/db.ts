@@ -293,6 +293,34 @@ export async function createSale(input: { businessId: number; userId: number; pa
   });
 }
 
+export async function cancelSale(input: { businessId: number; saleId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Banco de dados indisponível.");
+  return db.transaction(async (tx) => {
+    const [sale] = await tx
+      .select({ id: sales.id, status: sales.status })
+      .from(sales)
+      .where(and(eq(sales.id, input.saleId), eq(sales.businessId, input.businessId)))
+      .limit(1);
+    if (!sale) throw new Error("Venda não encontrada neste negócio.");
+    if (sale.status === "cancelled") return { success: true, alreadyCancelled: true } as const;
+
+    const items = await tx.select().from(saleItems).where(eq(saleItems.saleId, input.saleId));
+    const returnedByProduct = new Map<number, number>();
+    for (const item of items) {
+      returnedByProduct.set(item.productId, (returnedByProduct.get(item.productId) ?? 0) + item.quantity * item.stockUnits);
+    }
+    for (const [productId, units] of returnedByProduct) {
+      await tx
+        .update(products)
+        .set({ stockUnits: sql`${products.stockUnits} + ${units}` })
+        .where(and(eq(products.id, productId), eq(products.businessId, input.businessId)));
+    }
+    await tx.update(sales).set({ status: "cancelled", cancelledAt: new Date() }).where(and(eq(sales.id, input.saleId), eq(sales.businessId, input.businessId)));
+    return { success: true, alreadyCancelled: false, returnedUnits: [...returnedByProduct.values()].reduce((total, units) => total + units, 0) } as const;
+  });
+}
+
 export async function createFinancialEntry(input: { businessId: number; userId: number; type: FinancialEntryType; amountCents: number; description: string; occurredAt: Date }) {
   const db = await getDb();
   if (!db) throw new Error("Banco de dados indisponível.");

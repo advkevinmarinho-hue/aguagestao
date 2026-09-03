@@ -39,11 +39,16 @@
 - [x] Definir rota urgente de entrega ao cliente: GitHub Actions com artefato APK direto.
 - [x] Gerar e disponibilizar APK direto para instalação do cliente.
 
-- [ ] Auditar e corrigir a exclusão de registros de movimentação, estoque e despesas.
+- [x] Auditar e corrigir a exclusão de registros de movimentação, estoque e despesas.
 - [ ] Corrigir o erro de instalação do APK e gerar pacote Android compatível.
-- [ ] Corrigir o erro “Unmatched Route” após cadastrar e salvar produto.
+- [x] Corrigir o erro “Unmatched Route” após cadastrar e salvar produto.
 - [ ] Reexecutar testes, diagnóstico Expo e validação de integridade do APK corrigido.
 
 - [x] Preparar configuração Expo/EAS para publicação Android.
 - [x] Configurar perfil de build APK e versão Android atualizada.
 - [x] Validar diagnóstico Expo e orientar o uso do botão Publish sem iniciar publicação automática.
+
+- [x] Implementar cancelamento de venda com confirmação, devolução do estoque e reversão dos indicadores.
+- [x] Exibir vendas canceláveis e distinguir venda cancelada no histórico.
+- [x] Integrar exclusão de despesas e gastos com confirmação e atualização dos indicadores.
+- [x] Testar repetição, permissões, estoque e recálculos após cancelamento/exclusão.

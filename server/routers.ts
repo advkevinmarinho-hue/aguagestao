@@ -108,6 +108,16 @@ export const appRouter = router({
           throw new TRPCError({ code: "BAD_REQUEST", message: error instanceof Error ? error.message : "Não foi possível concluir a venda." });
         }
       }),
+    cancel: protectedProcedure
+      .input(z.object({ id: z.number().int().positive() }))
+      .mutation(async ({ ctx, input }) => {
+        const business = await requireBusiness(ctx.user.id);
+        try {
+          return await db.cancelSale({ businessId: business.id, saleId: input.id });
+        } catch (error) {
+          throw new TRPCError({ code: "BAD_REQUEST", message: error instanceof Error ? error.message : "Não foi possível cancelar a venda." });
+        }
+      }),
   }),
   finances: router({
     createEntry: protectedProcedure

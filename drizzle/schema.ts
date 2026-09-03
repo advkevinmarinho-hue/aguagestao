@@ -79,6 +79,8 @@ export const sales = mysqlTable(
     totalCents: int("totalCents").notNull(),
     paymentMethod: mysqlEnum("paymentMethod", ["cash", "pix", "card", "credit"]).notNull(),
     note: varchar("note", { length: 280 }),
+    status: mysqlEnum("status", ["completed", "cancelled"]).notNull().default("completed"),
+    cancelledAt: timestamp("cancelledAt"),
     createdAt: timestamp("createdAt").defaultNow().notNull(),
   },
   (table) => [index("sales_business_created_idx").on(table.businessId, table.createdAt)],

@@ -15,6 +15,13 @@
       "when": 1787871646124,
       "tag": "0001_cheerful_thor",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1788448680382,
+      "tag": "0002_greedy_polaris",
+      "breakpoints": true
     }
   ]
 }

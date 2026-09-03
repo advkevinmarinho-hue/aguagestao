@@ -36,6 +36,12 @@ describe("router input validation", () => {
     await expectBadRequest(api.sales.create({ paymentMethod: "cash", items: [{ exitModeId: 1, quantity: 0 }] }));
   });
 
+  it("rejects invalid sale cancellation identifiers", async () => {
+    const api = caller();
+    await expectBadRequest(api.sales.cancel({ id: 0 }));
+    await expectBadRequest(api.sales.cancel({ id: -3 }));
+  });
+
   it("rejects financial entries without positive value or description", async () => {
     const api = caller();
     await expectBadRequest(api.finances.createEntry({ type: "expense", amountCents: 0, description: "Conta", occurredAt: new Date() }));
