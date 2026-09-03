@@ -52,3 +52,6 @@
 - [x] Exibir vendas canceláveis e distinguir venda cancelada no histórico.
 - [x] Integrar exclusão de despesas e gastos com confirmação e atualização dos indicadores.
 - [x] Testar repetição, permissões, estoque e recálculos após cancelamento/exclusão.
+
+- [x] Tornar o cancelamento de venda claramente visível na lista de Finanças.
+- [x] Confirmar que a ação aparece somente para vendas concluídas e orientar o usuário no Android.
