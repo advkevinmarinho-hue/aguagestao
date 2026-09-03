@@ -300,6 +300,15 @@ export async function createFinancialEntry(input: { businessId: number; userId: 
   return result.insertId;
 }
 
+export async function deleteFinancialEntry(input: { businessId: number; entryId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Banco de dados indisponível.");
+  await db
+    .delete(financialEntries)
+    .where(and(eq(financialEntries.id, input.entryId), eq(financialEntries.businessId, input.businessId)));
+  return { success: true } as const;
+}
+
 export async function getLessonProgress(businessId: number, userId: number) {
   const db = await getDb();
   if (!db) throw new Error("Banco de dados indisponível.");

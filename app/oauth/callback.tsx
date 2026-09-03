@@ -53,7 +53,7 @@ export default function OAuthCallback() {
         if (!active) return;
         setStatus("success"); setMessage("Acesso confirmado. Preparando seu negócio...");
         queryClient.removeQueries({ queryKey: [["workspace", "get"]] });
-        router.replace("/(tabs)");
+        router.replace("/" as never);
       } catch (error) {
         if (!active) return;
         setStatus("error");

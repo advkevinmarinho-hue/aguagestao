@@ -41,6 +41,7 @@ describe("router input validation", () => {
     await expectBadRequest(api.finances.createEntry({ type: "expense", amountCents: 0, description: "Conta", occurredAt: new Date() }));
     await expectBadRequest(api.finances.createEntry({ type: "expense", amountCents: 100, description: " ", occurredAt: new Date() }));
     await expectBadRequest(api.finances.createEntry({ type: "other" as never, amountCents: 100, description: "Conta", occurredAt: new Date() }));
+    await expectBadRequest(api.finances.deleteEntry({ id: 0 }));
   });
 
   it("rejects invalid month and invalid lesson keys", async () => {

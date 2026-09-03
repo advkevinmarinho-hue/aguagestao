@@ -46,7 +46,7 @@ export default function HomeScreen() {
         </Card>
 
         <View style={styles.quickGrid}>
-          <PrimaryButton label="Vender" icon="cart.fill" onPress={() => router.push("/(tabs)/vender" as never)} />
+          <PrimaryButton label="Vender" icon="cart.fill" onPress={() => router.push("/vender" as never)} />
           <View style={styles.quickSecondary}><Text style={[styles.quickLabel, { color: colors.foreground }]}>Movimente o negócio</Text><View style={styles.quickActions}><IconAction icon="banknote.fill" label="Lançar gasto" onPress={() => router.push("/lancamento/novo" as never)} /><IconAction icon="shippingbox.fill" label="Cadastrar estoque" onPress={() => router.push("/produto/novo" as never)} /></View></View>
         </View>
 
@@ -55,7 +55,7 @@ export default function HomeScreen() {
           <SmallMetric label="Margem líquida" value={allMetrics.netMargin === null ? "—" : `${Math.round(allMetrics.netMargin * 100)}%`} icon="chart.bar.fill" colors={colors} />
           <SmallMetric label="Reserva" value={formatBRL(allMetrics.reserveCents)} icon="lock.fill" colors={colors} />
           <SmallMetric label="Estoque baixo" value={`${allMetrics.lowStockCount} item${allMetrics.lowStockCount === 1 ? "" : "s"}`} icon="exclamationmark.triangle.fill" colors={colors} warning={allMetrics.lowStockCount > 0} />
-        </View> : <EmptyState icon="cart.fill" title="Registre sua primeira venda" description="Cadastre um galão e registre as saídas para enxergar caixa, margem e progresso." actionLabel={workspace.products.length ? "Ir para vender" : "Cadastrar estoque"} onAction={() => router.push((workspace.products.length ? "/(tabs)/vender" : "/produto/novo") as never)} />}
+        </View> : <EmptyState icon="cart.fill" title="Registre sua primeira venda" description="Cadastre um galão e registre as saídas para enxergar caixa, margem e progresso." actionLabel={workspace.products.length ? "Ir para vender" : "Cadastrar estoque"} onAction={() => router.push((workspace.products.length ? "/vender" : "/produto/novo") as never)} />}
 
         <Card style={styles.goalCard}>
           <View style={styles.goalHeading}><View><Text style={[styles.sectionTitle, { color: colors.foreground }]}>Meta mensal</Text><Text style={[styles.sectionDescription, { color: colors.muted }]}>{goalProgress === null ? "Defina uma meta no perfil quando desejar." : `${Math.round(goalProgress * 100)}% do objetivo alcançado`}</Text></View><IconSymbol name="chart.bar.fill" size={23} color={colors.primary} /></View>

@@ -117,6 +117,12 @@ export const appRouter = router({
         const entryId = await db.createFinancialEntry({ businessId: business.id, userId: ctx.user.id, ...input });
         return { entryId };
       }),
+    deleteEntry: protectedProcedure
+      .input(z.object({ id: z.number().int().positive() }))
+      .mutation(async ({ ctx, input }) => {
+        const business = await requireBusiness(ctx.user.id);
+        return db.deleteFinancialEntry({ businessId: business.id, entryId: input.id });
+      }),
   }),
   reports: router({
     month: protectedProcedure

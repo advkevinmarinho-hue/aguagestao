@@ -36,9 +36,9 @@ export function ProductForm({ productId }: ProductFormProps) {
   }, [product]);
 
   const invalidate = async () => utils.workspace.get.invalidate();
-  const create = trpc.products.create.useMutation({ onSuccess: async () => { await invalidate(); router.replace("/(tabs)/produtos" as never); }, onError: (error) => Alert.alert("Não foi possível salvar", error.message) });
+  const create = trpc.products.create.useMutation({ onSuccess: async () => { await invalidate(); router.replace("/produtos" as never); }, onError: (error) => Alert.alert("Não foi possível salvar", error.message) });
   const update = trpc.products.update.useMutation({ onSuccess: async () => { await invalidate(); router.back(); }, onError: (error) => Alert.alert("Não foi possível salvar", error.message) });
-  const remove = trpc.products.remove.useMutation({ onSuccess: async (result) => { await invalidate(); Alert.alert(result.deactivated ? "Produto desativado" : "Produto apagado", result.deactivated ? "O histórico de vendas foi preservado." : "O produto e suas modalidades foram removidos."); router.replace("/(tabs)/produtos" as never); }, onError: (error) => Alert.alert("Não foi possível apagar", error.message) });
+  const remove = trpc.products.remove.useMutation({ onSuccess: async (result) => { await invalidate(); Alert.alert(result.deactivated ? "Produto desativado" : "Produto apagado", result.deactivated ? "O histórico de vendas foi preservado." : "O produto e suas modalidades foram removidos."); router.replace("/produtos" as never); }, onError: (error) => Alert.alert("Não foi possível apagar", error.message) });
 
   const save = () => {
     const stockUnits = Number.parseInt(stock || "0", 10);

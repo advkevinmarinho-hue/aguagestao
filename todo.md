@@ -38,3 +38,8 @@
 
 - [x] Definir rota urgente de entrega ao cliente: GitHub Actions com artefato APK direto.
 - [x] Gerar e disponibilizar APK direto para instalação do cliente.
+
+- [ ] Auditar e corrigir a exclusão de registros de movimentação, estoque e despesas.
+- [ ] Corrigir o erro de instalação do APK e gerar pacote Android compatível.
+- [ ] Corrigir o erro “Unmatched Route” após cadastrar e salvar produto.
+- [ ] Reexecutar testes, diagnóstico Expo e validação de integridade do APK corrigido.

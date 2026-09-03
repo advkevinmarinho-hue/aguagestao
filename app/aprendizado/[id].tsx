@@ -15,7 +15,7 @@ export default function LearningLessonScreen() {
   const lesson = useMemo(() => learningTracks.find((item) => item.id === id), [id]);
   const progress = trpc.learning.progress.useQuery();
   const utils = trpc.useUtils();
-  const complete = trpc.learning.complete.useMutation({ onSuccess: async () => { await utils.learning.progress.invalidate(); Alert.alert("Lição concluída", "Seu progresso foi salvo na sua conta.", [{ text: "Voltar para a trilha", onPress: () => router.replace("/(tabs)/aprender" as never) }]); }, onError: (error) => Alert.alert("Não foi possível salvar", error.message) });
+  const complete = trpc.learning.complete.useMutation({ onSuccess: async () => { await utils.learning.progress.invalidate(); Alert.alert("Lição concluída", "Seu progresso foi salvo na sua conta.", [{ text: "Voltar para a trilha", onPress: () => router.replace("/aprender" as never) }]); }, onError: (error) => Alert.alert("Não foi possível salvar", error.message) });
 
   if (!lesson) return <ScreenContainer className="p-4"><Text style={[styles.title, { color: colors.foreground }]}>Lição não encontrada</Text></ScreenContainer>;
   const isDone = Boolean(progress.data?.some((item) => item.lessonKey === lesson.id));
