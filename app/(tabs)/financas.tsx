@@ -20,7 +20,16 @@ export default function FinancesScreen() {
   const metrics = useMemo(() => workspace ? calculateMetrics(workspace.products, workspace.sales, workspace.saleItems, workspace.financialEntries) : null, [workspace]);
   const utils = trpc.useUtils();
   const deleteEntry = trpc.finances.deleteEntry.useMutation({ onSuccess: () => utils.workspace.get.invalidate() });
-  const cancelSale = trpc.sales.cancel.useMutation({ onSuccess: () => utils.workspace.get.invalidate() });
+  const cancelSale = trpc.sales.cancel.useMutation();
+  const runCancel = async (saleId: number) => {
+    try {
+      const result = await cancelSale.mutateAsync({ id: saleId });
+      await utils.workspace.get.invalidate();
+      Alert.alert(result.alreadyCancelled ? "Venda já cancelada" : "Venda cancelada", result.alreadyCancelled ? "Esta venda já havia sido cancelada." : "O estoque foi devolvido e os indicadores foram atualizados.");
+    } catch (error) {
+      Alert.alert("Não foi possível cancelar", error instanceof Error ? error.message : "Atualize a tela e tente novamente.");
+    }
+  };
   const confirmCancel = (item: Movement) => {
     if (item.status === "cancelled" || cancelSale.isPending) return;
     const saleId = getSaleId(item);
@@ -30,7 +39,7 @@ export default function FinancesScreen() {
     }
     Alert.alert("Cancelar venda?", "O estoque será devolvido e os indicadores serão recalculados. A venda ficará registrada como cancelada.", [
       { text: "Manter venda", style: "cancel" },
-      { text: "Cancelar venda", style: "destructive", onPress: () => cancelSale.mutate({ id: saleId }) },
+      { text: "Cancelar venda", style: "destructive", onPress: () => void runCancel(saleId) },
     ]);
   };
   const confirmDelete = (item: Movement) => {

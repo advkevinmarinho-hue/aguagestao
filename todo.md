@@ -58,3 +58,6 @@
 
 - [x] Corrigir identificação dos registros de venda para exibir “Cancelar” na lista de Finanças.
 - [x] Validar visualmente o botão no cartão de venda e gerar novo APK para o cliente.
+
+- [x] Corrigir falha em que a confirmação de cancelamento não conclui a venda.
+- [x] Validar devolução do estoque, atualização dos indicadores e feedback de sucesso/erro.
