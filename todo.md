@@ -55,3 +55,6 @@
 
 - [x] Tornar o cancelamento de venda claramente visível na lista de Finanças.
 - [x] Confirmar que a ação aparece somente para vendas concluídas e orientar o usuário no Android.
+
+- [x] Corrigir identificação dos registros de venda para exibir “Cancelar” na lista de Finanças.
+- [x] Validar visualmente o botão no cartão de venda e gerar novo APK para o cliente.
