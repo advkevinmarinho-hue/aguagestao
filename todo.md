@@ -61,3 +61,6 @@
 
 - [x] Corrigir falha em que a confirmação de cancelamento não conclui a venda.
 - [x] Validar devolução do estoque, atualização dos indicadores e feedback de sucesso/erro.
+
+- [x] Corrigir APK Debug que depende do Metro e gerar APK Release com JavaScript embutido.
+- [x] Validar o bundle standalone sem Metro, USB ou Wi‑Fi do computador.
