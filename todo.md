@@ -64,3 +64,21 @@
 
 - [x] Corrigir APK Debug que depende do Metro e gerar APK Release com JavaScript embutido.
 - [x] Validar o bundle standalone sem Metro, USB ou Wi‑Fi do computador.
+
+- [x] Diagnosticar por que o cancelamento de venda não conclui após o toque e a confirmação.
+- [x] Corrigir o fluxo completo e gerar APK standalone com cancelamento funcional.
+
+- [x] Aprofundar as sete trilhas com explicações, exemplos numéricos e exercícios práticos.
+- [x] Criar e integrar os assets didáticos restantes das trilhas.
+- [ ] Gerar APK Release final e validar a instalação standalone.
+- [x] Diagnosticar por que o cancelamento de venda não conclui após o toque e a confirmação.
+- [x] Corrigir o fluxo completo com confirmação própria, estado de processamento, feedback persistente e refetch do workspace.
+- [x] Corrigir APK standalone com a nova interface de cancelamento e disponibilizar o artefato final.
+- [x] Validar visualmente no Android e revisar o conteúdo educacional aprofundado.
+
+- [x] Corrigir APK standalone com a nova interface de cancelamento e disponibilizar o artefato final.
+- [x] Validar visualmente no Android e revisar o conteúdo educacional aprofundado.
+
+- [x] Aprofundar as sete trilhas com explicações, exemplos numéricos e exercícios práticos.
+- [x] Criar e integrar os assets didáticos restantes das trilhas.
+- [ ] Gerar APK Release final e validar a instalação standalone.
