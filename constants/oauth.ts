@@ -1,11 +1,6 @@
 import * as Linking from "expo-linking";
 import * as ReactNative from "react-native";
-
-// Extract scheme from bundle ID (last segment timestamp, prefixed with "manus")
-// e.g., "space.manus.my.app.t20240115103045" -> "manus20240115103045"
-const bundleId = "com.app.aguagestao";
-const timestamp = bundleId.split(".").pop()?.replace(/^t/, "") ?? "";
-const schemeFromBundleId = `manus${timestamp}`;
+import { APP_DEEP_LINK_SCHEME, PUBLISHED_API_BASE_URL } from "@/shared/auth-config";
 
 const env = {
   portal: process.env.EXPO_PUBLIC_OAUTH_PORTAL_URL ?? "",
@@ -13,8 +8,8 @@ const env = {
   appId: process.env.EXPO_PUBLIC_APP_ID ?? "",
   ownerId: process.env.EXPO_PUBLIC_OWNER_OPEN_ID ?? "",
   ownerName: process.env.EXPO_PUBLIC_OWNER_NAME ?? "",
-  apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL ?? "",
-  deepLinkScheme: schemeFromBundleId,
+  apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL ?? process.env.VITE_API_BASE_URL ?? "",
+  deepLinkScheme: APP_DEEP_LINK_SCHEME,
 };
 
 export const OAUTH_PORTAL_URL = env.portal;
@@ -43,6 +38,12 @@ export function getApiBaseUrl(): string {
     if (apiHostname !== hostname) {
       return `${protocol}//${apiHostname}`;
     }
+  }
+
+  // Native standalone builds do not have a browser hostname. Use the published
+  // backend unless an explicit API URL was injected at build time.
+  if (ReactNative.Platform.OS !== "web") {
+    return PUBLISHED_API_BASE_URL;
   }
 
   // Fallback to empty (will use relative URL)

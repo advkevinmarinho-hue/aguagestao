@@ -82,3 +82,8 @@
 - [x] Aprofundar as sete trilhas com explicações, exemplos numéricos e exercícios práticos.
 - [x] Criar e integrar os assets didáticos restantes das trilhas.
 - [ ] Gerar APK Release final e validar a instalação standalone.
+
+- [x] Diagnosticar o retorno para a tela inicial após tocar em “Entrar com e-mail”.
+- [x] Corrigir callback OAuth, persistência da sessão e redirecionamento no Android.
+- [x] Criar testes de regressão para entrada, callback e sessão inválida.
+- [ ] Validar e gerar nova versão standalone do APK após a correção.
